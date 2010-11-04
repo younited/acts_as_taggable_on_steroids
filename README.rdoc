@@ -1,11 +1,9 @@
 = acts_as_taggable_on_steroids
 
-If you find this plugin useful, please consider a donation to show your support!
+Modified from original version: http://svn.viney.net.nz/things/rails/plugins/acts_as_taggable_on_steroids
 
-  http://www.paypal.com/cgi-bin/webscr?cmd=_send-money
-  
-  Email address: jonathan.viney@gmail.com
-  
+Original author: jonathan.viney@gmail.com
+
 == Instructions
 
 This plugin is based on acts_as_taggable by DHH but includes extras
@@ -13,7 +11,7 @@ such as tests, smarter tag assignment, and tag cloud calculations.
 
 == Installation
 
-  ruby script/plugin install http://svn.viney.net.nz/things/rails/plugins/acts_as_taggable_on_steroids
+  rails plugin install https://github.com/younited/acts_as_taggable_on_steroids
 
 == Usage
 
@@ -31,10 +29,10 @@ The first step is to add +acts_as_taggable+ to the Post class:
 
   class Post < ActiveRecord::Base
     acts_as_taggable
-    
+
     belongs_to :user
   end
-  
+
 We can now use the tagging methods provided by acts_as_taggable, <tt>#tag_list</tt> and <tt>#tag_list=</tt>. Both these
 methods work like regular attribute accessors.
 
@@ -43,7 +41,7 @@ methods work like regular attribute accessors.
   p.tag_list = "Funny, Silly"
   p.save
   p.tag_list # ["Funny", "Silly"]
-  
+
 You can also add or remove arrays of tags.
 
   p.tag_list.add("Great", "Awful")
@@ -54,12 +52,12 @@ You can also add or remove arrays of tags.
 To retrieve objects tagged with a certain tag, use find_tagged_with.
 
   Post.find_tagged_with('Funny, Silly')
-  
+
 By default, find_tagged_with will find objects that have any of the given tags. To
 find only objects that are tagged with all the given tags, use match_all.
 
   Post.find_tagged_with('Funny, Silly', :match_all => true)
-  
+
 See <tt>ActiveRecord::Acts::Taggable::InstanceMethods</tt> for more methods and options.
 
 === Tag cloud calculations
@@ -70,7 +68,7 @@ get a calculation of all the tag counts by using <tt>Post.tag_counts</tt>. But w
 an single user's posts? To achieve this we call tag_counts on the association:
 
   User.find(:first).posts.tag_counts
-  
+
 A helper is included to assist with generating tag clouds. Include it in your helper file:
 
   module ApplicationHelper
@@ -86,12 +84,12 @@ Controller:
       @tags = Post.tag_counts
     end
   end
-  
+
 View:
   <% tag_cloud @tags, %w(css1 css2 css3 css4) do |tag, css_class| %>
     <%= link_to tag.name, { :action => :tag, :id => tag.name }, :class => css_class %>
   <% end %>
-  
+
 CSS:
 
   .css1 { font-size: 1.0em; }
@@ -113,9 +111,9 @@ the full tag list and must have a default value of null, not an empty string.
 
   class Post < ActiveRecord::Base
     acts_as_taggable
-    
+
     # The caching column defaults to cached_tag_list, but can be changed:
-    # 
+    #
     # set_cached_tag_list_column_name "my_caching_column_name"
   end
 
@@ -139,4 +137,4 @@ used to tag any objects. Defaults to false.
 
 === Other
 
-Problems, comments, and suggestions all welcome. jonathan.viney@gmail.com  
+Problems, comments, and suggestions all welcome. jonathan.viney@gmail.com
