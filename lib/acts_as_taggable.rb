@@ -16,7 +16,6 @@ module ActiveRecord #:nodoc:
           include ActiveRecord::Acts::Taggable::InstanceMethods
           extend ActiveRecord::Acts::Taggable::SingletonMethods
 
-          alias_method_chain :reload, :tag_list
         end
 
         def cached_tag_list_column_name
